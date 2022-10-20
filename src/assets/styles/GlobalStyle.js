@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components"
 import { authColor } from "../../constants/colors";
+import { Link } from "react-router-dom";
 
 
 
@@ -74,15 +75,86 @@ const Container = styled.div`
   	display: flex;
  	justify-content: center;
     align-items: center;
-    flex-direction: column;
-    /* background-color: #F60919; */
-	background-color: ${authColor};
+    flex-direction: column;    
+	background-color: ${authColor}; 
 
+`
+const Entry = styled.input`
+    border: 1px solid #D5D5D5;
+    border-radius: 5px;
+    /* background: #F2F2F2; */
+   background-color: ${(props) => props.disabled === true ? "#F2F2F2": "#FFFFFF"};
+    
+    width: 303px;
+    height: 45px;
+    margin-bottom: 8px;
+
+	font-family: 'Lexend Deca', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19.976px;
+    line-height: 25px;
+    color: #666666;  
 
 `
 
 
+const Botao = styled.button`
+    background: #52B6FF;
+	/* background: ${(props) => props.disabled === true ? "#F2F2F2": "#52B6FF"}; 
+	 */
+    border-radius: 4.63636px;
+    border:none;
+    
+    height:${(props) => props.stature};
+    width: ${(props) => props.spread};
+
+
+    font-family: 'Lexend Deca', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20.976px;
+    line-height: 26px;
+    text-align: center;
+    color: #FFFFFF;	
+	cursor: pointer;
+
+	/* opacity: ${props => (props.loading === 1) ? 0.7 : 1}; */
+`
+
+
+const StyledLink = styled(Link)` 
+	text-align: center;
+	width: 303px;    
+	height: 17px;
+	font-family: 'Lexend Deca';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 13.976px;
+	line-height: 17px;
+
+	text-decoration-line: underline;
+	color: #52B6FF;
+	margin-top: 25px;
+	cursor: pointer;
+`
+
+const ContainerAuth = styled.div`	
+ 	width: 100%;
+ 	padding: 31px;
+  	display: flex;
+    flex-direction: column;
+ 	justify-content: center;
+  
+`
+
+
+
 export {
 	GlobalStyle,
-	Container
+	Container,
+	Entry,
+	Botao,
+	StyledLink,
+	ContainerAuth
 }
