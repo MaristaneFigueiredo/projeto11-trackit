@@ -1,16 +1,25 @@
 import { Container, Entry, Botao, StyledLink, ContainerAuth } from "../assets/styles/GlobalStyle"
 import Logo from "../components/Logo";
-import { useState } from "react"
+import { useContext, useState } from "react"
 import axios from "axios";
 import { BASE_URL } from "../constants/urls"
+import { useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
+import { AuthContext } from "../contexts/auth";
+
 
 
 export default function LoginPage() {
     const [form, setForm] = useState({ email: "", password: "" })
     const [disabledInput, setDisabledInput] = useState(false)
     const [disabledButton, setDisabledButton] = useState(false)
-
+    const navigate = useNavigate()    
+    
+    const {loading, setLoading} = useContext(AuthContext)
+    const {user, setUser} = useContext(AuthContext)
+    console.log('M- loading',loading)
+    console.log('M- user',user)
+    
     function handleForm(e) {
         const { name, value } = e.target
         setForm({ ...form, [name]: value })
@@ -21,7 +30,11 @@ export default function LoginPage() {
     function doLogin(event) {
         setDisabledInput(true)
         setDisabledButton(true)
+        setLoading(1)
         event.preventDefault()
+
+        
+        
 
 
         const body = form
@@ -31,8 +44,16 @@ export default function LoginPage() {
                 (res) => {
                     // console.log(res.data)
                     alert("Login feito com sucesso!")
-
-
+                    setLoading(0)
+                    const usuario = {
+                        nome: res.data.name,
+                        email: res.data.email,
+                        foto: res.data.image,
+                        token: res.data.token,
+                    }
+                    setUser(usuario)
+                    localStorage.setItem('user', JSON.stringify(usuario)) //dados serializados - convertidos a string
+                    navigate("/hoje")
                 }
 
             )
@@ -40,13 +61,19 @@ export default function LoginPage() {
                 (error) => {
                     // alert(`Erro: ${error.response.data} . Seu login não deu certo!`)
                     alert(`Seu login não deu certo! Por gentileza, verificar email e senha - Erro: ${error.message}.`)
+                    setUser({})
+                    localStorage.removeItem('user')
                     setDisabledInput(false)
                     setDisabledButton(false)
+                    setLoading(0)
                 }
 
             )
+
+            
     }
-    console.log('disabledInput, disabledButton', disabledInput, disabledButton)
+    // console.log('disabledInput, disabledButton', disabledInput, disabledButton)
+   
 
 
     return (
@@ -74,9 +101,8 @@ export default function LoginPage() {
                         type="password"
                         placeholder="senha"
                         required
-                    />
-                    <Botao data-identifier="login-btn" disabled={disabledButton} spread="303px" stature="45px" type="submit">Entrar</Botao>
-                    {/* <Botao data-identifier="login-btn" disabled={disabledButton} spread="303px" stature="45px" type="submit">
+                    />             
+                    <Botao data-identifier="login-btn" disabled={disabledButton} spread="303px" stature="45px" type="submit">
                         {
                             (loading === 0) ? 'Entrar'
                                 :
@@ -91,7 +117,7 @@ export default function LoginPage() {
                                     visible={loading}
                                 />
                         }
-                    </Botao> */}
+                    </Botao>
                     <StyledLink data-identifier="sign-up-action" to="/cadastro">Não possui uma conta? Cadastre-se!</StyledLink>
 
                 </ContainerAuth>

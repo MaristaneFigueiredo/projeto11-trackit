@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components"
-import { authColor } from "../../constants/colors";
+import { authColor, screenColor } from "../../constants/colors";
 import { Link } from "react-router-dom";
 
 
@@ -76,7 +76,9 @@ const Container = styled.div`
  	justify-content: center;
     align-items: center;
     flex-direction: column;    
-	background-color: ${authColor}; 
+	background-color: ${screenColor}; 
+
+	margin-bottom:32px; //devido ao menu fixed
 
 `
 const Entry = styled.input`
@@ -100,9 +102,7 @@ const Entry = styled.input`
 
 
 const Botao = styled.button`
-    background: #52B6FF;
-	/* background: ${(props) => props.disabled === true ? "#F2F2F2": "#52B6FF"}; 
-	 */
+    background: #52B6FF;	
     border-radius: 4.63636px;
     border:none;
     
@@ -115,11 +115,16 @@ const Botao = styled.button`
     font-weight: 400;
     font-size: 20.976px;
     line-height: 26px;
-    text-align: center;
+    /* text-align: center; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	align-items: center;
     color: #FFFFFF;	
 	cursor: pointer;
 
-	/* opacity: ${props => (props.loading === 1) ? 0.7 : 1}; */
+	opacity: ${props => (props.loading === 1) ? 0.7 : 1};
 `
 
 
