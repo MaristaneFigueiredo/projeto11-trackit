@@ -1,7 +1,13 @@
 
 export const screenColor = "#E5E5E5"
 export const authColor = "#FFFFFF"
-// export const authColor = "#F60919"
 export const titleColor ="#126BA5"
+
+
+
+
+export const menuColor ="#FFFFFF"
+// export const menuColor ="#F60919"
+
 
 

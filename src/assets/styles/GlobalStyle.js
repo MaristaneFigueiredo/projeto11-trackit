@@ -1,6 +1,5 @@
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components"
-import { authColor, screenColor } from "../../constants/colors";
 import { Link } from "react-router-dom";
 
 
@@ -72,19 +71,24 @@ const Container = styled.div`
 	min-height: 100vh;
  	width: 100%;
  	padding: 31px;
-  	display: flex;
- 	justify-content: center;
-    align-items: center;
-    flex-direction: column;    
-	background-color: ${screenColor}; 
+  	
+	display: flex;
+	flex-direction: column; 
+ 	/* justify-content: center;    */
 
+	justify-content:${(props) => props.justV} ;
+	align-items:${(props) => props.alignH} ;
+       
+	background-color: ${(props) => props.background}; 
+	
+	margin-top:60px; //devido a nav fixed
 	margin-bottom:32px; //devido ao menu fixed
 
 `
 const Entry = styled.input`
     border: 1px solid #D5D5D5;
     border-radius: 5px;
-    /* background: #F2F2F2; */
+    
    background-color: ${(props) => props.disabled === true ? "#F2F2F2": "#FFFFFF"};
     
     width: 303px;

@@ -6,6 +6,7 @@ import { BASE_URL } from "../constants/urls"
 import { useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
 import { AuthContext } from "../contexts/auth";
+import { authColor } from "../constants/colors";
 
 
 
@@ -17,7 +18,7 @@ export default function LoginPage() {
     
     const {loading, setLoading} = useContext(AuthContext)
     const {user, setUser} = useContext(AuthContext)
-    console.log('M- loading',loading)
+    // console.log('M- loading',loading)
     console.log('M- user',user)
     
     function handleForm(e) {
@@ -77,7 +78,7 @@ export default function LoginPage() {
 
 
     return (
-        <Container>
+        <Container background={authColor} alignH="center" justV="center">
             <Logo />
 
             <form onSubmit={doLogin}>

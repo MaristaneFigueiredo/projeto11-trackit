@@ -3,8 +3,10 @@ import Logo from "../components/Logo";
 import { useContext, useState } from "react"
 import axios from "axios";
 import { BASE_URL } from "../constants/urls"
+import { useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner"
 import { AuthContext } from "../contexts/auth";
+import { authColor } from "../constants/colors";
 
 
 
@@ -13,6 +15,7 @@ export default function SingUpPage() {
     const [disabledInput, setDisabledInput] = useState(false)
     const [disabledButton, setDisabledButton] = useState(false)
     const {loading, setLoading} = useContext(AuthContext)
+    const navigate = useNavigate()
 
     function handleForm(e) {
         const { name, value } = e.target
@@ -33,6 +36,7 @@ export default function SingUpPage() {
                     // console.log(res.data)
                     alert("Cadastro feito com sucesso!")
                     setLoading(0)
+                    navigate("/")
                     
                     
                 }
@@ -51,7 +55,7 @@ export default function SingUpPage() {
     }    
 
     return(
-        <Container>
+        <Container background={authColor} alignH="center" justV="center">
         <Logo />
 
         <form onSubmit={doSignUP}>
@@ -96,8 +100,8 @@ export default function SingUpPage() {
                     placeholder="foto"
                     required
                 />
-                {/* <Botao disabled={disabledButton} spread="303px" stature="45px" type="submit">Cadastrar</Botao> */}
-                <Botao disabled={disabledButton} spread="303px" stature="45px" type="submit">Cadastrar
+                
+                <Botao disabled={disabledButton} spread="303px" stature="45px" type="submit">
                 {
                             (loading === 0) ? 'Cadastrar'
                                 :
