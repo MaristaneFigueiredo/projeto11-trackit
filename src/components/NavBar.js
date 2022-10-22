@@ -13,7 +13,7 @@ export default function NavBar() {
     return (
         <NavContainer>
             TrackIt
-            <img src={user.photo} alt="foto"/>
+            <img data-identifier="avatar" src={user.photo} alt="foto"/>
             {/* <img src={photo} alt="foto usuário"/> */}           
 
        

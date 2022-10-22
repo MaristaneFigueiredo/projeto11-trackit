@@ -15,7 +15,7 @@ export default function Menu() {
     const { percentageDone } = useContext(AuthContext)
     return (
         <MenuContainer>
-            <Link to="/habitos"> <ButtonOrdinary>Hábitos</ButtonOrdinary></Link>
+            <Link to="/habitos" data-identifier="habit-page-action"> <ButtonOrdinary>Hábitos</ButtonOrdinary></Link>
             <Link to="/hoje">
          
                 <ContainerProgressBar>
@@ -34,7 +34,7 @@ export default function Menu() {
                 </ContainerProgressBar>
            
             </Link>
-            <Link to="/historico"><ButtonOrdinary to="/historico">Histórico</ButtonOrdinary> </Link>
+            <Link to="/historico" data-identifier="historic-page-action"><ButtonOrdinary to="/historico">Histórico</ButtonOrdinary> </Link>
 
         </MenuContainer>
     );

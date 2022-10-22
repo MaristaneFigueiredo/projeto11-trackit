@@ -8,6 +8,8 @@ export default function WeekButtons({days, setDays}) {
     const {loading} = useContext(AuthContext)
 
     function addDay(day) {
+        console.log('WeekButtons - entrei aqui')
+
         if (days.includes(day)) {
             const selectedDays = days.filter( (d) => d !== day)
             setDays(selectedDays)
