@@ -60,7 +60,7 @@ export default function SingUpPage() {
 
         <form onSubmit={doSignUP}>
             <ContainerAuth>
-                <Entry
+                <Entry spread="303px"
                     data-identifier="input-email"
                     disabled={disabledInput}
                     name="email"
@@ -70,7 +70,7 @@ export default function SingUpPage() {
                     placeholder="email"
                     required
                 />
-                <Entry
+                <Entry spread="303px"
                     data-identifier="input-password"
                     disabled={disabledInput}
                     name="password"
@@ -80,7 +80,7 @@ export default function SingUpPage() {
                     placeholder="senha"
                     required
                 />
-                <Entry
+                <Entry spread="303px"
                     data-identifier="input-name"
                     disabled={disabledInput}
                     name="name"
@@ -90,7 +90,7 @@ export default function SingUpPage() {
                     placeholder="nome"
                     required
                 />
-                <Entry
+                <Entry spread="303px"
                     data-identifier="input-photo"
                     disabled={disabledInput}
                     name="image"
@@ -101,7 +101,7 @@ export default function SingUpPage() {
                     required
                 />
                 
-                <Botao disabled={disabledButton} spread="303px" stature="45px" type="submit">
+                <Botao disabled={disabledButton} spread="303px" stature="45px" size="20.976px" type="submit">
                 {
                             (loading === 0) ? 'Cadastrar'
                                 :

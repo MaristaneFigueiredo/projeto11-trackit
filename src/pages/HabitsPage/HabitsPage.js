@@ -1,11 +1,11 @@
-// import Menu from "../components/Menu";
+
 import Menu from "../../components/Menu";
 import NavBar from "../../components/NavBar";
 import { screenColor } from "../../constants/colors";
 import styled from "styled-components"
 
-import { Container, ContainerTask, Title  } from "../../assets/styles/GlobalStyle";
-// import Phrase from "../components/Phrase";
+import { Container, Title  } from "../../assets/styles/GlobalStyle";
+
 import { useState } from "react";
 import Phrase from "../../components/Phrase";
 import InsertHabit from "./InsertHabit";
@@ -14,13 +14,10 @@ import { useNavigate } from "react-router-dom"
 
 export default function HabitsPage() {
     const [show, setShow] = useState(true)
+    const [showForm, setShowForm] = useState(false)
     const navigate = useNavigate()
 
-    function inserirHabit(){
-       
-        console.log('entrei aqui')
-        // return <InsertHabit/>
-    }
+
 
     return (
         <>
@@ -28,14 +25,15 @@ export default function HabitsPage() {
             <Container background={screenColor} alignH="flex-start" justV="baseline">
                 <ContainerInsert>
                     <Title>Meus Hábitos</Title>
-                    <button onClick={inserirHabit}>+</button>     
-                   
-                    {/* <button onClick={()=>navigate("./inserirHabit")}>+</button>     */}         
-                  
-                    {/* <button>+</button>                    */}
-                    
-                    
+                    {/* <button onClick={addHabit}>+</button>   */}
+                    <button onClick={()=>setShowForm(true)}>+</button>                                                                
                 </ContainerInsert>
+
+                {
+                        (showForm === true) &&
+                        <InsertHabit setShowForm="setShowForm"/>
+                        
+                } 
 
                 <Phrase show={show}/>
             </Container>

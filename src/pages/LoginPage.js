@@ -43,8 +43,7 @@ export default function LoginPage() {
         axios.post(`${BASE_URL}/auth/login`, body)
             .then(
                 (res) => {
-                    // console.log(res.data)
-                    alert("Login feito com sucesso!")
+                    // console.log(res.data)                    
                     setLoading(0)
                     const usuario = {
                         name: res.data.name,
@@ -85,7 +84,7 @@ export default function LoginPage() {
 
             <form onSubmit={doLogin}>
                 <ContainerAuth>
-                    <Entry
+                    <Entry spread="303px"
                         data-identifier="input-email"
                         disabled={disabledInput}
                         name="email"
@@ -95,7 +94,7 @@ export default function LoginPage() {
                         placeholder="email"
                         required
                     />
-                    <Entry
+                    <Entry spread="303px"
                         data-identifier="input-password"
                         disabled={disabledInput}
                         name="password"
@@ -105,7 +104,7 @@ export default function LoginPage() {
                         placeholder="senha"
                         required
                     />
-                    <Botao data-identifier="login-btn" disabled={disabledButton} spread="303px" stature="45px" type="submit">
+                    <Botao data-identifier="login-btn" disabled={disabledButton} spread="303px" stature="45px" size="20.976px" type="submit">
                         {
                             (loading === 0) ? 'Entrar'
                                 :

@@ -75,7 +75,7 @@ const Container = styled.div`
   	
 	display: flex;
 	flex-direction: column; 
- 	/* justify-content: center;    */
+ 
 
 	justify-content:${(props) => props.justV} ;
 	align-items:${(props) => props.alignH} ;
@@ -92,7 +92,9 @@ const Entry = styled.input`
     
    background-color: ${(props) => props.disabled === true ? "#F2F2F2": "#FFFFFF"};
     
-    width: 303px;
+    /* width: 303px; */	
+	/* width: 75vw; */
+	width:${(props) => props.spread};
     height: 45px;
     margin-bottom: 8px;
 
@@ -107,7 +109,8 @@ const Entry = styled.input`
 
 
 const Botao = styled.button`
-    background: #52B6FF;	
+	background: ${props => (props.name === "cancel") ? "white" : "#52B6FF"};
+	color: ${props => (props.name === "cancel") ? "#52B6FF" : "#FFFFFF"};	
     border-radius: 4.63636px;
     border:none;
     
@@ -118,7 +121,8 @@ const Botao = styled.button`
     font-family: 'Lexend Deca', sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: 20.976px;
+ 
+	font-size: ${(props) => props.size};
     line-height: 26px;
     /* text-align: center; */
 	display: flex;
@@ -126,7 +130,7 @@ const Botao = styled.button`
 	align-items: center;
 
 	align-items: center;
-    color: #FFFFFF;	
+    
 	cursor: pointer;
 
 	opacity: ${props => (props.loading === 1) ? 0.7 : 1};
@@ -159,7 +163,7 @@ const ContainerAuth = styled.div`
 `
 
 const ContainerTask = styled.div`
-    display: flex;
+    display: flex;	
     justify-content: space-between;
     align-items: center;
 
@@ -172,6 +176,8 @@ const ContainerTask = styled.div`
     padding: 13px 13px 17px 15px;
 
     margin-bottom:10px; 
+	margin-top:${(props) => props.marginT} ;
+	/* margin-bottom:20px; */
 `
 
 

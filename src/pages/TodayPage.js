@@ -17,7 +17,7 @@ export default function TodayPage() {
                 </ContainerTitle>
 
                 {/* height: 94px;  */}
-                <ContainerTask>
+                <ContainerTask marginT="10px">
                     <ContainerDescription>
                         <h1>Ler 1 capítulo de livro</h1>
                         <p>Sequência atual: <span>3 dias</span></p>
