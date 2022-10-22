@@ -7,8 +7,10 @@ import LoginPage from "./pages/LoginPage";
 import SingUpPage from "./pages/SignUpPage";
 import TodayPage from "./pages/TodayPage";
 import { AuthProvider } from "./contexts/auth";
-import HabitsPage from "./pages/HabitsPage";
+// import HabitsPage from "./pages/HabitsPage";
+import HabitsPage from "./pages/HabitsPage/HabitsPage";
 import HistoricPage from "./pages/HistoricPage";
+import InsertHabit from "./pages/HabitsPage/InsertHabit";
 
 
 
@@ -24,10 +26,15 @@ export default function App() {
                     <Route path="/hoje" element={<TodayPage />} />
                     <Route path="/habitos" element={<HabitsPage />} />
                     <Route path="/historico" element={<HistoricPage />} />
+
+                    {/* <Route path="/inserirHabit" element={<InsertHabit />} /> */}
                 </Routes>
+                
 
             </BrowserRouter>
         </AuthProvider>
+
+        
 
 
     )

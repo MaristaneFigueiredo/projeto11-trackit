@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components"
 import { Link } from "react-router-dom";
+import { titleColor } from "../../constants/colors";
 
 
 
@@ -157,6 +158,31 @@ const ContainerAuth = styled.div`
   
 `
 
+const ContainerTask = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    height:${(props) => props.stature};
+    
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color:#FFFFFF ;
+    padding: 13px 13px 17px 15px;
+
+    margin-bottom:10px; 
+`
+
+
+const Title = styled.h1`
+    font-family: 'Lexend Deca';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22.976px;
+    line-height: 29px;
+    color:${titleColor};
+` 
 
 
 export {
@@ -165,5 +191,7 @@ export {
 	Entry,
 	Botao,
 	StyledLink,
-	ContainerAuth
+	ContainerAuth,
+	ContainerTask,
+	Title
 }

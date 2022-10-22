@@ -14,13 +14,13 @@ export default function LoginPage() {
     const [form, setForm] = useState({ email: "", password: "" })
     const [disabledInput, setDisabledInput] = useState(false)
     const [disabledButton, setDisabledButton] = useState(false)
-    const navigate = useNavigate()    
-    
-    const {loading, setLoading} = useContext(AuthContext)
-    const {user, setUser} = useContext(AuthContext)
-    // console.log('M- loading',loading)
-    console.log('M- user',user)
-    
+    const navigate = useNavigate()
+
+    const { loading, setLoading } = useContext(AuthContext)
+    const { user, setUser } = useContext(AuthContext)
+
+    // console.log('M- user',user)
+
     function handleForm(e) {
         const { name, value } = e.target
         setForm({ ...form, [name]: value })
@@ -34,8 +34,8 @@ export default function LoginPage() {
         setLoading(1)
         event.preventDefault()
 
-        
-        
+
+
 
 
         const body = form
@@ -47,13 +47,14 @@ export default function LoginPage() {
                     alert("Login feito com sucesso!")
                     setLoading(0)
                     const usuario = {
-                        nome: res.data.name,
+                        name: res.data.name,
                         email: res.data.email,
-                        foto: res.data.image,
+                        photo: res.data.image,
                         token: res.data.token,
                     }
                     setUser(usuario)
                     localStorage.setItem('user', JSON.stringify(usuario)) //dados serializados - convertidos a string
+                    // console.log('Pegando do localstorage o user',JSON.parse(localStorage.getItem('user')))
                     navigate("/hoje")
                 }
 
@@ -71,14 +72,15 @@ export default function LoginPage() {
 
             )
 
-            
+
     }
     // console.log('disabledInput, disabledButton', disabledInput, disabledButton)
-   
+
 
 
     return (
         <Container background={authColor} alignH="center" justV="center">
+            {/* <Container background={authColor} alignH="center" justV="flex-end"> */}
             <Logo />
 
             <form onSubmit={doLogin}>
@@ -102,7 +104,7 @@ export default function LoginPage() {
                         type="password"
                         placeholder="senha"
                         required
-                    />             
+                    />
                     <Botao data-identifier="login-btn" disabled={disabledButton} spread="303px" stature="45px" type="submit">
                         {
                             (loading === 0) ? 'Entrar'

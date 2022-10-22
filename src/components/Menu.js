@@ -73,6 +73,7 @@ const ButtonOrdinary = styled.button`
         
         border:none;   
         background-color:#FFFFFF;
+        cursor:pointer;
 `
 const ContainerProgressBar = styled.div`
     height: 90px;
