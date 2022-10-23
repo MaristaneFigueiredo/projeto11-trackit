@@ -177,7 +177,9 @@ const ContainerTask = styled.div`
 
     margin-bottom:10px; 
 	margin-top:${(props) => props.marginT} ;
-	/* margin-bottom:20px; */
+	
+	display:${(props) => props.showTask === true ? "display" : "none"};           
+	
 `
 
 

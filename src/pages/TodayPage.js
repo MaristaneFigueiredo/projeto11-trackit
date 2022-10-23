@@ -1,59 +1,166 @@
 
 import Menu from "../components/Menu";
 import NavBar from "../components/NavBar";
-import { screenColor} from "../constants/colors";
+import { screenColor } from "../constants/colors";
 import styled from "styled-components"
 import { Container, ContainerTask, Title } from "../assets/styles/GlobalStyle";
+import { AuthContext } from "../contexts/auth";
+import { useContext, useEffect, useState } from "react";
+import dayjs from "dayjs";
+import 'dayjs/locale/pt-br'
+import axios from 'axios'
+import { BASE_URL } from "../constants/urls";
+import Phrase from "../components/Phrase";
 
-export default function TodayPage() {
+export default function TodayPage() {    
+    const [listHabitDay, setListHabitDay] = useState([])
+
+    const { user, percentageDone, loading, setLoading, setpercentageDone } = useContext(AuthContext)
+
+    const header = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user.token}`,
+        }
+    }
+
+    let weekDay = String(dayjs().locale('pt-br').format('dddd, DD/MM'))
+    weekDay = weekDay.charAt(0).toUpperCase() + weekDay.slice(1)
+
+
+    // OPCIONAL => Se eu quiser mostrar um erro na tela caso a requisição caia no catch
+    const [error, setError] = useState(false)
+
+
+    useEffect(() => diplayHabitsToday(), [])
+
+    function diplayHabitsToday() {
+        
+
+        const promise = axios.get(`${BASE_URL}/habits/today`, header)
+
+        promise.then((res) => {
+            // console.log('res.data', res.data)
+            setListHabitDay(res.data)
+            setLoading(1)
+
+        })
+
+        promise.catch((err) => {
+            console.log(err.response.data)
+
+            // OPCIONAL => mostrar erro na tela
+            setError(true) // mas seto o erro como true para mostrar a mensagem de erro
+            setLoading(0)
+
+        })
+
+        // OPCIONAL => Se a requisição deu errado (caiu no catch), renderize essa mensagem
+        if (error === true) {
+            return <div>Erro na requisição! Tente de novo</div>
+        }
+
+        // Se eu ainda não tive resultado da requisição , mostre o carregando
+        if (!error && listHabitDay === undefined) {
+            return <div>Carregando...</div>
+        }
+    }
+
+    //testanto async
+    async function setHabitDone(id) {
+        try {
+            await axios.post(`${BASE_URL}/habits/${id}/check`, {}, header)
+                .then((response) => {
+                   
+                    diplayHabitsToday()
+
+                })
+                .catch((erro) => {
+                    const mensagem = (erro.response.status === 422) ? 'Preencha os campos corretamente' : erro.response.data.message
+                    alert(mensagem)
+                })
+        }
+        catch (erro) {
+            alert('Erro!')
+
+        }
+
+    }
+
+    async function setHabitNotDone(id) {
+        try {
+            await axios.post(`${BASE_URL}/habits/${id}/uncheck`, {}, header)
+                .then((response) => {                    
+                    diplayHabitsToday()
+
+                })
+                .catch((erro) => {
+                    const mensagem = (erro.response.status === 422) ? 'Preencha os campos corretamente' : erro.response.data.message
+                    alert(mensagem)
+                })
+        }
+        catch (erro) {
+            alert('Erro!')
+
+        }
+
+    }
+
+
+    function validaDone() {
+        const habitsDone = listHabitDay.filter((h) => h.done).length || 0
+        const totalHabits = listHabitDay.length || 0
+        const percentual = Math.ceil((habitsDone / totalHabits) * 100) || 0
+        setpercentageDone(percentual)
+        localStorage.setItem('percentualConcluido', percentual)
+        return percentual
+    }
+
+
     return (
         <>
             <NavBar />
 
             <Container background={screenColor} alignH="flex-start" justV="baseline">
                 <ContainerTitle>
-                    <Title>Today Page</Title>
-                    <h2>Nenhum hábito concluído ainda</h2>
+                    <Title data-identifier="today-infos">{weekDay}</Title>
+                    <SubTitle data-identifier="today-infos" letterColor={(percentageDone === 0) ? "#BABABA" : "#8FC549"}>
+
+                        {validaDone() === 0 ?
+                            "Nenhum hábito concluído ainda"
+                            :
+                            `${validaDone()}% dos hábitos concluídos`
+
+                        }
+
+                    </SubTitle>
                 </ContainerTitle>
 
-                {/* height: 94px;  */}
-                <ContainerTask marginT="10px">
-                    <ContainerDescription>
-                        <h1>Ler 1 capítulo de livro</h1>
-                        <p>Sequência atual: <span>3 dias</span></p>
-                        <p>Seu recorde:  <span>4 dias</span></p>
-                    </ContainerDescription>
 
-                    <ContainerCheck>
-                        {/* <ion-icon name="checkmark-sharp"></ion-icon> */}
+                {listHabitDay.map((h) => {
+                    return (
+                        <ContainerTask key={h.id} marginT="10px" showTask={(listHabitDay.length > 0) ? true : false}>
+                            <ContainerDescription data-identifier="today-infos" >
+
+                                <h1>{h.name}</h1>
+                                <p>Sequência atual: <ContainerSpain SeqColor="#8FC549">{h.currentSequence} dias</ContainerSpain></p>
+                                <p>Seu recorde:  <ContainerSpain SeqColor={(h.currentSequence !== h.highestSequence) ? '##666666' : '#8FC549'}>{h.highestSequence} dias</ContainerSpain></p>
 
 
-                        {/* <ButtonCheck corBotao={(habito.done) ? '#8FC549' : '#E7E7E7' } onClick={() => (habito.done) ? setHabitoNaoConcluido(habito.id) : setHabitoConcluido(habito.id)  }>
-                            <ion-icon name="checkmark-sharp"  style={ { color: '#FFF', fontSize: '50px', fontWeight: '800' }}></ion-icon>
-                        </ButtonCheck> */}
+                            </ContainerDescription>
 
-                        <ButtonCheck>
-                            <ion-icon name="checkmark-sharp"></ion-icon>
-                        </ButtonCheck>
-                    </ContainerCheck>
+                            <ContainerCheck>
+                                <ButtonCheck data-identifier="done-habit-btn" colorButton={(h.done) ? '#8FC549' : '#E7E7E7'} onClick={() => (h.done) ? setHabitNotDone(h.id) : setHabitDone(h.id)}>
+                                    <ion-icon name="checkmark-sharp"></ion-icon>
+                                </ButtonCheck>
+                            </ContainerCheck>
 
-                </ContainerTask>
+                        </ContainerTask>)
 
-                <ContainerTask>
-                    <ContainerDescription>
-                        <h1>Ler 1 capítulo de livro</h1>
-                        <p>Sequência atual: <span>3 dias</span></p>
-                        <p>Seu recorde:  <span>4 dias</span></p>
-                    </ContainerDescription>
+                }
+                )}
 
-                    <ContainerCheck>
-                        <ButtonCheck>
-                            <ion-icon name="checkmark-sharp"></ion-icon>
-                        </ButtonCheck>
-                    </ContainerCheck>
-
-                </ContainerTask>
-
+                <Phrase showPhrase={(listHabitDay.length > 0) ? false : true} />
 
             </Container>
             <Menu />
@@ -69,16 +176,17 @@ const ContainerTitle = styled.div`
     flex-direction: column;
     margin-bottom:28px;
 
-    h2{
-        font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 17.976px;
-        line-height: 22px;
-    }
+`
+const SubTitle = styled.h2`
+    font-family: 'Lexend Deca';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17.976px;
+    line-height: 22px;
+    color:${(props) => props.letterColor};           
+        
 
 `
-
 
 const ContainerDescription = styled.div`
     display: flex;
@@ -105,10 +213,11 @@ const ContainerDescription = styled.div`
         font-size: 12.976px;
         line-height: 16px;
     }
+`
 
-    span{
-        color:#8FC549;
-    }
+const ContainerSpain = styled.span`          
+            color:${(props) => props.SeqColor};
+            
 `
 
 const ContainerCheck = styled.div`
@@ -119,16 +228,14 @@ const ContainerCheck = styled.div`
 
 `
 
-const ButtonCheck = styled.button`
-    /* background-color: #8FC549 ; */
-/* background-color: ${props => props.corBotao}; */
+const ButtonCheck = styled.button`    
+    background-color: ${props => props.colorButton};
     border: none;
     border-radius: 5px;
     height: 70px;
     width: 70px;
 
-    ion-icon{
-        /* color:red; */
+    ion-icon{        
 
         color:#FFFFFF;         
         font-weight: bold;

@@ -46,7 +46,8 @@ export default function InsertHabit({ setShowForm }) {
                         console.log(res.data)
                         alert("Hábito criado com sucesso!")
                         setShowForm(false)
-                        setLoading(0)
+                        setLoading(1)
+                        setHabit("")
 
                     }
 
@@ -66,7 +67,7 @@ export default function InsertHabit({ setShowForm }) {
     }
 
     return (
-        <ContainerTask stature="180px" marginT="20px">
+        <ContainerTask stature="180px" marginT="20px" showTask ={true}>
 
             <form onSubmit={addHabit}>
                 <ContainerInput>

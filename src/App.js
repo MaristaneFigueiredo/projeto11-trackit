@@ -26,8 +26,7 @@ export default function App() {
                     <Route path="/hoje" element={<TodayPage />} />
                     <Route path="/habitos" element={<HabitsPage />} />
                     <Route path="/historico" element={<HistoricPage />} />
-
-                    {/* <Route path="/inserirHabit" element={<InsertHabit />} /> */}
+                   
                 </Routes>
                 
 

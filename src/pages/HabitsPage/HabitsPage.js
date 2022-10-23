@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom"
 
 
 export default function HabitsPage() {
-    const [show, setShow] = useState(true)
+    const [showPhrase, setShowPhrase] = useState(true)
     const [showForm, setShowForm] = useState(false)
     const navigate = useNavigate()
 
@@ -35,7 +35,8 @@ export default function HabitsPage() {
                         
                 } 
 
-                <Phrase show={show}/>
+                <Phrase showPhrase={showPhrase}/>
+                
             </Container>
 
             <Menu />

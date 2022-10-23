@@ -13,10 +13,8 @@ export default function NavBar() {
     return (
         <NavContainer>
             TrackIt
-            <img data-identifier="avatar" src={user.photo} alt="foto"/>
-            {/* <img src={photo} alt="foto usuário"/> */}           
-
-       
+            <img data-identifier="avatar" src={user.photo}/>                  
+      
         </NavContainer>
 
     
@@ -35,9 +33,7 @@ const NavContainer =styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* align-items: baseline; */
-
-    /* width: 100vw; */
+  
     width: 100%;
     height: 67px;
 

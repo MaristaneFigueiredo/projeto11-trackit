@@ -1,14 +1,15 @@
 import styled from "styled-components"
-import HabitsPage from "../pages/HabitsPage/HabitsPage";
+// import HabitsPage from "../pages/HabitsPage/HabitsPage";
+// import TodayPage from "../pages/TodayPage";
 
 
-export default function Phrase({show}){
+export default function Phrase({showPhrase}){
+    
     return (
-           <Paragraph exibir={show}>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</Paragraph>
+           <Paragraph exibir={showPhrase}>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</Paragraph>
         
     );
 }
-
 
 
 
@@ -25,3 +26,5 @@ const Paragraph = styled.p `
     margin-top: 28px;
 
 `
+
+
