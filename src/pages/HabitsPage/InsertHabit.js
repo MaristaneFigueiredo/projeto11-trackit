@@ -7,7 +7,10 @@ import axios from 'axios'
 import WeekButtons from "../../components/WeekButtons"
 import { AuthContext } from "../../contexts/auth"
 
-export default function InsertHabit({ setShowForm }) {
+export default function InsertHabit({ setShowFormInsert }) {
+    // const testeForm = setShowFormInsert.value;    
+    // console.log('testeForm',testeForm)
+
     const [disabledButton, setDisabledButton] = useState(false)
     const [disabledInput, setDisabledInput] = useState(false)
     const { user } = useContext(AuthContext)
@@ -45,7 +48,7 @@ export default function InsertHabit({ setShowForm }) {
                     (res) => {
                         console.log(res.data)
                         alert("Hábito criado com sucesso!")
-                        setShowForm(false)
+                        setShowFormInsert(false)
                         setLoading(1)
                         setHabit("")
 
@@ -84,10 +87,9 @@ export default function InsertHabit({ setShowForm }) {
                     <WeekButtons data-identifier="week-day-btn" days={days} setDays={setDays} />
                 </ContainerInput>
 
-                <ContainerButtons>
-                    {/* <Botao data-identifier="cancel-habit-create-btn" disabled={disabledButton} spread="84px" stature="35px" size="15.976px" name="cancel" type="cancel" onClick={() => { setShowForm(false) }}> Cancelar </Botao> */}
-                    {/* <BotaoCancel data-identifier="cancel-habit-create-btn" disabled={disabledButton} name="cancel" type="cancel" onClick={() => { setShowForm(false) }}> Cancelar </BotaoCancel> */}
-                    <BotaoLink data-identifier="cancel-habit-create-btn" onClick={() => {setShowForm(false) }}>Cancelar</BotaoLink>
+                <ContainerButtons>                   
+               
+                    <Botao data-identifier="cancel-habit-create-btn" disabled={disabledButton} spread="84px" stature="35px" size="15.976px" name="cancel" onClick={() => {setShowFormInsert(false); setHabit('')}}> Cancelar </Botao>
                     <Botao data-identifier="save-habit-create-btn" disabled={disabledButton} spread="84px" stature="35px" size="15.976px" type="submit"> Salvar </Botao>
                 </ContainerButtons>
 
@@ -118,45 +120,4 @@ const ContainerButtons = styled.div`
 `
 
 
-const BotaoLink = styled.span`
-    color: #52b6ff;
-    font-family: 'Lexend Deca';
-    font-style: normal;
-    font-weight: 400;
-    font-size: ${props => props.tamanhoTexto};
-    line-height: 17px;
-    text-align: center;
-    text-decoration-line: ${props => props.decoration};
-    text-decoration: ${props => props.decoration};
-    &:focus, &:hover, &:visited, &:link, &:active {
-            text-decoration: ${props => props.decoration};
-        }
 
-         
-
-    /* background: white;
-	color: #52B6FF;	
-    border-radius: 4.63636px;
-    border:none;
-    
-    height:35px;
-    width: 84px;
-
-
-    font-family: 'Lexend Deca', sans-serif;
-    font-style: normal;
-    font-weight: 400;
- 
-	font-size: 15.976px;
-    line-height: 26px;
-    
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	align-items: center;
-    
-	cursor: pointer; */
-
-	/* opacity: ${props => (props.loading === 1) ? 0.7 : 1}; */
-`
