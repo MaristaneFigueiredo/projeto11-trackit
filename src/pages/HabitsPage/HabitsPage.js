@@ -69,8 +69,7 @@ export default function HabitsPage() {
             setLoading(1)      
             // BASE_URL = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit"      
             await axios.delete(`${BASE_URL}/habits/${h.id}`, header)
-                        .then( () => {
-                            // listHabits()
+                        .then( () => {                            
                             displayHabits()
                         })
                         .catch( (erro) => {
@@ -110,7 +109,7 @@ export default function HabitsPage() {
         )
     }
 
-
+    
     return (
         <>
             <NavBar />
@@ -122,7 +121,7 @@ export default function HabitsPage() {
 
                 {
                         (showFormInsert === true) &&
-                        <InsertHabit setShowFormInsert={setShowFormInsert}/>
+                        <InsertHabit setShowFormInsert={setShowFormInsert} displayHabits={displayHabits} />
                         
                 } 
 
@@ -202,6 +201,7 @@ const ContainerRemove = styled.div`
     display: flex;
     justify-content:flex-end;
     align-items: center;
+    
     margin-left:5px;
 
 `
@@ -209,4 +209,6 @@ const ContainerRemove = styled.div`
 const BotaoDelete = styled.button`
     background-color: transparent;
     border: none;
+
+    margin-bottom: 35px;
 `

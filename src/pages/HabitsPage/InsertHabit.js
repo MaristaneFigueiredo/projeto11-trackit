@@ -7,9 +7,9 @@ import axios from 'axios'
 import WeekButtons from "../../components/WeekButtons"
 import { AuthContext } from "../../contexts/auth"
 
-export default function InsertHabit({ setShowFormInsert }) {
-    // const testeForm = setShowFormInsert.value;    
-    // console.log('testeForm',testeForm)
+
+export default function InsertHabit({ setShowFormInsert, displayHabits }) {
+
 
     const [disabledButton, setDisabledButton] = useState(false)
     const [disabledInput, setDisabledInput] = useState(false)
@@ -25,6 +25,19 @@ export default function InsertHabit({ setShowFormInsert }) {
         }
     }
 
+    // function validarWeekDays() {
+
+    //     console.log('days', days)
+    //     if (days.length === 0) {
+    //         alert('Informar os dia(s) da semana que o hábito deve acontecer.') 
+    //         return
+    //     }
+    // }
+
+
+
+
+
 
     function addHabit(e) {
         setDisabledInput(true)
@@ -32,45 +45,42 @@ export default function InsertHabit({ setShowFormInsert }) {
         e.preventDefault()
 
 
-        console.log('days', days)
-        if (days.length === 0) {
-            alert('Informar os dia(s) da semana que o hábito deve acontecer.')
-
-        } else {
+       
 
             const body = {
                 name: habit,
                 days: days
             }
 
-            axios.post(`${BASE_URL}/habits`, body, header)
-                .then(
-                    (res) => {
-                        console.log(res.data)
-                        alert("Hábito criado com sucesso!")
-                        setShowFormInsert(false)
-                        setLoading(1)
-                        setHabit("")
+        axios.post(`${BASE_URL}/habits`, body, header)
+            .then(
+                (res) => {
+                    console.log(res.data)
+                    alert("Hábito criado com sucesso!")
+                    setShowFormInsert(false)
+                    setLoading(1)
+                    setHabit("")
+                    displayHabits()
 
-                    }
+                }
 
-                )
-                .catch(
-                    (error) => {
-                        console.log(`Erro: ${error.response.data} . Sua criação não deu certo!`)
-                        // alert(`Problema na criação do hábito - Erro: ${error.response.data.message}.`)                  
-                        setDisabledInput(false)
-                        setDisabledButton(false)
-                        setLoading(0)
-                    }
+            )
+            .catch(
+                (error) => {
+                    console.log(`Erro: ${error.response.data} . Sua criação não deu certo!`)
+                    // alert(`Problema na criação do hábito - Erro: ${error.response.data.message}.`)                  
+                    setDisabledInput(false)
+                    setDisabledButton(false)
+                    setLoading(0)
+                }
 
-                )
+            )
 
-        }
+      
     }
 
     return (
-        <ContainerTask stature="180px" marginT="20px" showTask ={true}>
+        <ContainerTask stature="180px" marginT="20px" showTask={true}>
 
             <form onSubmit={addHabit}>
                 <ContainerInput>
@@ -84,13 +94,15 @@ export default function InsertHabit({ setShowFormInsert }) {
                         placeholder="nome do hábito"
                         required
                     />
-                    <WeekButtons data-identifier="week-day-btn" days={days} setDays={setDays} />
+                    <WeekButtons data-identifier="week-day-btn" days={days} setDays={setDays} required />
                 </ContainerInput>
 
-                <ContainerButtons>                   
-               
-                    <Botao data-identifier="cancel-habit-create-btn" disabled={disabledButton} spread="84px" stature="35px" size="15.976px" name="cancel" onClick={() => {setShowFormInsert(false); setHabit('')}}> Cancelar </Botao>
+                <ContainerButtons>
+
+                    <Botao data-identifier="cancel-habit-create-btn" disabled={disabledButton} spread="84px" stature="35px" size="15.976px" name="cancel" onClick={() => { setShowFormInsert(false); setHabit('') }}> Cancelar </Botao>
                     <Botao data-identifier="save-habit-create-btn" disabled={disabledButton} spread="84px" stature="35px" size="15.976px" type="submit"> Salvar </Botao>
+
+
                 </ContainerButtons>
 
             </form>

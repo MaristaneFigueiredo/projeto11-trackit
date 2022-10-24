@@ -14,7 +14,7 @@ import { AuthContext } from "../contexts/auth";
 export default function Menu() {
     const { percentageDone } = useContext(AuthContext)
 
-    // console.log('Menu-percentageDone',percentageDone)
+ 
     return (
         <MenuContainer>
             <Link to="/habitos" data-identifier="habit-page-action"> <ButtonOrdinary>Hábitos</ButtonOrdinary></Link>

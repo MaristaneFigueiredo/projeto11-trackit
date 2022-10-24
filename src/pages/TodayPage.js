@@ -144,7 +144,7 @@ export default function TodayPage() {
 
                                 <h1>{h.name}</h1>
                                 <p>Sequência atual: <ContainerSpain SeqColor="#8FC549">{h.currentSequence} dias</ContainerSpain></p>
-                                <p>Seu recorde:  <ContainerSpain SeqColor={(h.currentSequence !== h.highestSequence) ? '##666666' : '#8FC549'}>{h.highestSequence} dias</ContainerSpain></p>
+                                <p>Seu recorde:  <ContainerSpain SeqColor={(h.currentSequence !== h.highestSequence || h.highestSequence === 0 )  ? '##666666' : '#8FC549'}>{h.highestSequence} dias</ContainerSpain></p>
 
 
                             </ContainerDescription>
